@@ -1,0 +1,12 @@
+GET http://localhost:5000/api
+
+###
+POST http://localhost:5000/api
+Content-Type: application/json
+
+{
+  "aa": 11
+}
+
+###
+GET http://localhost:5000/api/teacher
