@@ -1,12 +1,31 @@
 GET http://localhost:5000/api
 
 ###
-POST http://localhost:5000/api
+GET http://localhost:5000/api/teacher
+
+###
+
+POST http://localhost:5000/api/teacher
 Content-Type: application/json
 
 {
-  "aa": 11
+  "name": "Run",
+  "salary": 800,
+  "subjects": "木吉他"
 }
 
 ###
-GET http://localhost:5000/api/teacher
+PATCH http://localhost:5000/api/teacher
+Content-Type: application/json
+
+{
+  "name": "Kai",
+  "salary": 1200,
+  "subjects": "木吉他 ｜ 電吉他"
+}
+
+###
+DELETE http://localhost:5000/api/teacher/Run
+
+###
+DELETE http://localhost:5000/api/teacher/
