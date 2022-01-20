@@ -14,6 +14,7 @@ import {
   Optional,
 } from 'sequelize'
 import sequelize from '.'
+import Student from './Student'
 
 interface TeacherAttr {
   id: number
@@ -28,14 +29,20 @@ export default class Teacher
   extends Model<TeacherAttr, TeacherCreationAttr>
   implements TeacherAttr
 {
-  declare id: number // Note that the `null assertion` `!` is required in strict mode.
-  declare name: string
-  declare salary: number
-  declare subjects: string
+  public id!: number
+  public name!: string
+  public salary!: number
+  public subjects!: string
 
   // timestamps!
-  declare readonly createdAt: Date
-  declare readonly updatedAt: Date
+  public readonly createdAt!: Date
+  public readonly updatedAt!: Date
+
+  public getStudents!: HasManyGetAssociationsMixin<Student> // Note the null assertions!
+  public addStudent!: HasManyAddAssociationMixin<Student, number>
+  public hasStudent!: HasManyHasAssociationMixin<Student, number>
+  public countStudents!: HasManyCountAssociationsMixin
+  public createStudent!: HasManyCreateAssociationMixin<Student>
 }
 
 export async function initTeacherTable() {
@@ -59,7 +66,32 @@ export async function initTeacherTable() {
     { tableName: 'Teacher', sequelize }
   )
 
-  await Teacher.sync()
+  // Teacher.hasMany(Student, {
+  //   sourceKey: 'id',
+  //   foreignKey: 'teacher_id',
+  // })
+
+  // const oneTeacher: Teacher = await Teacher.create({
+  //   name: 'AA',
+  //   salary: 5000,
+  //   subjects: '123-456',
+  // })
+
+  // const student1: Student = await oneTeacher.createStudent({
+  //   name: '學生Ａ',
+  // })
+  // const student2: Student = await oneTeacher.createStudent({
+  //   name: '學生Ｂ',
+  // })
+
+  // console.log(
+  //   'add',
+  //   await oneTeacher.addStudent(student1),
+  //   'get',
+  //   await oneTeacher.getStudents()
+  // )
+
+  // await Teacher.sync()
 }
 
 const getAllTeacher = async (): Promise<Array<Teacher>> => Teacher.findAll()

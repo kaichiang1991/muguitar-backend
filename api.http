@@ -9,7 +9,7 @@ POST http://localhost:5000/api/teacher
 Content-Type: application/json
 
 {
-  "name": "Run",
+  "name": "Kai",
   "salary": 800,
   "subjects": "木吉他"
 }

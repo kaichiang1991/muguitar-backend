@@ -2,7 +2,6 @@ import express from 'express'
 import { initDatabase } from './database'
 import apiRouter from './router/api'
 
-console.log('port', process.env.PORT)
 const app: express.Express = express()
 
 app.use(express.json())
@@ -15,8 +14,7 @@ app.get('/', (req, res) => {
 app.use('/api', apiRouter)
 
 const port: number = Number(process.env.PORT) || 3000
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`server is listening to port ${port}...`)
+  await initDatabase()
 })
-
-initDatabase()

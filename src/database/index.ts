@@ -1,8 +1,10 @@
 import { Sequelize } from 'sequelize'
-import { initTeacherTable } from './Teacher'
+import Course, { initCourseTable } from './Course'
+import Student, { initStudentTable } from './Student'
+import Teacher, { initTeacherTable } from './Teacher'
 
 const sequelize = new Sequelize({
-  dialect: 'mysql',
+  dialect: 'mariadb',
   database: 'MuGuitar',
   username: 'root',
   password: 'abcd1234',
@@ -21,7 +23,26 @@ export async function initDatabase() {
     console.log('auth fail', e)
   }
 
+  await initCourseTable()
+  await initStudentTable()
   await initTeacherTable()
+
+  await initTableAssociation()
+
+  await sequelize.sync()
+}
+
+// 初始化 Table 間的關聯
+const initTableAssociation = () => {
+  Teacher.hasMany(Student, {
+    sourceKey: 'id',
+    foreignKey: 'teacher_id',
+  })
+
+  Student.hasOne(Course, {
+    sourceKey: 'id',
+    foreignKey: 'student_id',
+  })
 }
 
 export default sequelize
