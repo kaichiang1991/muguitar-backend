@@ -20,9 +20,10 @@ export default class StudentOp {
 
   static newOne = async (
     teacher_name: string,
-    name: string
+    name: string,
+    comment: string
   ): Promise<Student | string> => {
-    const teacher: Teacher = (await allOp.teacher.getByName(
+    const teacher: Teacher = (await allOp.teacher.getByName!(
       teacher_name
     )) as Teacher
     if (!teacher) {
@@ -32,6 +33,7 @@ export default class StudentOp {
     const student: Student = await teacher
       .createStudent({
         name,
+        comment,
       })
       .catch(err => err.name)
 
@@ -41,15 +43,19 @@ export default class StudentOp {
   /**
    * 修改學生資料
    * @param {string} name 學生名字
+   * @param {string} comment 學生備註
    * @returns {Promsie<string | Student>}
    */
-  static updateOne = async (name: string): Promise<string | Student> => {
+  static updateOne = async (
+    name: string,
+    comment: string
+  ): Promise<string | Student> => {
     const student: Student = await this.getOne(name)
     if (typeof student === 'string') {
       return student
     }
 
-    return student?.update({})
+    return student?.update({ comment })
   }
 
   /**

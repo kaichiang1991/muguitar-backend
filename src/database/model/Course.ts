@@ -33,10 +33,17 @@ export async function initCourseTable() {
         autoIncrement: true,
         primaryKey: true,
       },
-      subject: new DataTypes.STRING(64),
-      time: DataTypes.DATE,
+      subject: {
+        type: new DataTypes.STRING(64),
+        allowNull: false,
+      },
+      time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       student_id: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
       },
     },
     { tableName: 'Course', sequelize }

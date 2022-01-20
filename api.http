@@ -49,7 +49,16 @@ Content-Type: application/json
 
 {
   "name": "studentC",
-  "teacher_name": "Run"
+  "teacher_name": "Kai"
+}
+
+###
+PATCH http://localhost:5000/api/student/
+Content-Type: application/json
+
+{
+  "name": "studentB",
+  "comment": "new Comment"
 }
 
 ###
@@ -57,4 +66,36 @@ DELETE http://localhost:5000/api/student/studentC
 
 ###
 DELETE http://localhost:5000/api/student/
+
+
+######## 課程 #######
+###
+GET http://localhost:5000/api/course
+
+###
+GET http://localhost:5000/api/course/aa
+
+###
+POST http://localhost:5000/api/course/
+Content-Type: application/json
+
+{
+  "student_name": "studentA",
+  "subject": "木吉他"
+}
+
+###
+PATCH http://localhost:5000/api/course/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "subject": "new Subject"
+}
+
+###
+DELETE http://localhost:5000/api/course/0
+
+###
+DELETE http://localhost:5000/api/course/
 

@@ -15,4 +15,5 @@ export enum eErrorCode {
 
   // 個別的錯誤
   deleteNoOne = -2,
+  notFound = -3,
 }

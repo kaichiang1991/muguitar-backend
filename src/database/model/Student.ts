@@ -1,12 +1,10 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import sequelize from '..'
-import allOp from '../operation'
-import Course from './Course'
-import Teacher from './Teacher'
 
 interface StudentAttr {
   id: number
   name: string
+  comment: string
 }
 
 interface StudentCreationAttr extends Optional<StudentAttr, 'id'> {}
@@ -17,6 +15,7 @@ export default class Student
 {
   public id!: number
   public name!: string
+  public comment!: string
 
   // timestamps!
   public readonly createdAt!: Date
@@ -32,6 +31,10 @@ export async function initStudentTable() {
         primaryKey: true,
       },
       name: new DataTypes.STRING(64),
+      comment: {
+        type: new DataTypes.STRING(255),
+        allowNull: true,
+      },
     },
     { tableName: 'Student', sequelize }
   )

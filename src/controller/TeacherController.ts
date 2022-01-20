@@ -20,7 +20,7 @@ export default class TeacherController extends BaseController {
 
   public getOne: IExpressCallback = async (req, res) => {
     const { name } = req.params
-    const response: Model = await Op.getByName(name)
+    const response: Model = await Op.getByName!(name)
     const result: IResponseData = {
       code: response ? eErrorCode.success : eErrorCode.fail,
       data: response,
