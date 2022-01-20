@@ -141,9 +141,7 @@ const modifyTeacher = async (
   salary?: number,
   subjects?: string
 ): Promise<Teacher | string> => {
-  const teacher: Teacher = await Teacher.findOne({
-    where: { name },
-  }).catch(err => err.name)
+  const teacher: Teacher = await getTeacherByName(name)
 
   // 是錯誤訊息
   if (typeof teacher === 'string') {

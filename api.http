@@ -4,7 +4,7 @@ GET http://localhost:5000/api
 GET http://localhost:5000/api/teacher
 
 ###
-GET http://localhost:5000/api/teacher/AA
+GET http://localhost:5000/api/teacher/Kai
 
 ###
 
@@ -32,3 +32,26 @@ DELETE http://localhost:5000/api/teacher/Run
 
 ###
 DELETE http://localhost:5000/api/teacher/
+
+
+###
+GET http://localhost:5000/api/student
+
+###
+GET http://localhost:5000/api/student/aa
+
+###
+POST http://localhost:5000/api/student/
+Content-Type: application/json
+
+{
+  "name": "studentC",
+  "teacher_name": "Kai"
+}
+
+###
+DELETE http://localhost:5000/api/student/studentC
+
+###
+DELETE http://localhost:5000/api/student/
+

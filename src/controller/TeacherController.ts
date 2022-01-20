@@ -27,7 +27,7 @@ export default class TeacherController {
     const { name } = req.params
     const response: Teacher = await getTeacherByName(name)
     const result: IResponseData = {
-      code: response ? eErrorCode.fail : eErrorCode.success,
+      code: response ? eErrorCode.success : eErrorCode.fail,
       data: response,
     }
     res.json(result)
