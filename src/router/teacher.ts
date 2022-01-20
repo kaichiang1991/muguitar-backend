@@ -1,16 +1,18 @@
 import express from 'express'
+import BaseController from '../controller/BaseController'
 import TeacherController from '../controller/TeacherController'
 
 const router = express.Router()
+const instance: BaseController = TeacherController.getInstance()
 // get
-router.get('/:name', TeacherController.getInstance().getOne)
-router.get('/', TeacherController.getInstance().getAll)
+router.get('/:name', instance.getOne)
+router.get('/', instance.getAll)
 // post
-router.post('/', TeacherController.getInstance().addOne)
+router.post('/', instance.addOne)
 // patch
-router.patch('/', TeacherController.getInstance().updateOne)
+router.patch('/', instance.updateOne)
 // delete
-router.delete('/:name', TeacherController.getInstance().deleteOne)
-router.delete('/', TeacherController.getInstance().deleteAll)
+router.delete('/:name', instance.deleteOne)
+router.delete('/', instance.deleteAll)
 
 export default router

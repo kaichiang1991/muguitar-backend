@@ -1,8 +1,10 @@
 import { Model } from 'sequelize'
+import StudentOp from './Student'
 import TeacherOp from './Teacher'
 
 interface IAllOp {
   teacher: IModelOperator<Model>
+  student: IModelOperator<Model>
 }
 
 interface IModelOperator<T> {
@@ -23,6 +25,14 @@ const allOp: IAllOp = {
     updateOne: TeacherOp.updateOne,
     deleteAll: TeacherOp.deleteAll,
     deleteOne: TeacherOp.deleteOne,
+  },
+  student: {
+    getAll: StudentOp.getAll,
+    getByName: StudentOp.getOne,
+    addOne: StudentOp.newOne,
+    updateOne: StudentOp.updateOne,
+    deleteAll: StudentOp.deleteAll,
+    deleteOne: StudentOp.deleteOne,
   },
 }
 export default allOp

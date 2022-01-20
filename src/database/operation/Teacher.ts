@@ -1,7 +1,7 @@
 import Teacher from '../model/Teacher'
 
 export default class TeacherOp {
-  static getAll = () => Teacher.findAll()
+  static getAll = async (): Promise<Array<Teacher>> => Teacher.findAll()
 
   /**
    * 根據名字取得教師

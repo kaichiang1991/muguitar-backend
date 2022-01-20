@@ -1,10 +1,12 @@
 import express from 'express'
+import BaseController from '../controller/BaseController'
 import StudentController from '../controller/StudentController'
 
 const router = express.Router()
-router.get('/:name', StudentController.getInstance().getStudentByName)
-router.get('/', StudentController.getInstance().getAllStudent)
-router.post('/', StudentController.getInstance().addNewStudent)
-router.delete('/:name', StudentController.getInstance().deleteStudent)
-router.delete('/', StudentController.getInstance().deleteAllStudent)
+const instance: BaseController = StudentController.getInstance()
+router.get('/:name', instance.getOne)
+router.get('/', instance.getAll)
+router.post('/', instance.addOne)
+router.delete('/:name', instance.deleteOne)
+router.delete('/', instance.deleteAll)
 export default router
