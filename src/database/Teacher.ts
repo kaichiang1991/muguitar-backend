@@ -97,6 +97,18 @@ export async function initTeacherTable() {
 const getAllTeacher = async (): Promise<Array<Teacher>> => Teacher.findAll()
 
 /**
+ * 根據名字取得教師
+ * @param {string} name 教師名字
+ * @returns {Promise<Teacher>}
+ */
+const getTeacherByName = async (name: string): Promise<Teacher> => {
+  const teacher: Teacher = await Teacher.findOne({ where: { name } }).catch(
+    err => err.name
+  )
+  return teacher
+}
+
+/**
  * 新增教師
  * @param {string} name 名字
  * @param {number} salary 薪水
@@ -154,6 +166,7 @@ const deleteAllTeacher = async () => Teacher.truncate()
 
 export {
   getAllTeacher,
+  getTeacherByName,
   newTeacher,
   modifyTeacher,
   deleteOneTeacher,

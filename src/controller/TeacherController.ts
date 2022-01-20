@@ -3,6 +3,7 @@ import Teacher, {
   deleteAllTeacher,
   deleteOneTeacher,
   getAllTeacher,
+  getTeacherByName,
   modifyTeacher,
   newTeacher,
 } from '../database/Teacher'
@@ -18,6 +19,16 @@ export default class TeacherController {
     const result: IResponseData = {
       code: eErrorCode.success,
       data: await getAllTeacher(),
+    }
+    res.json(result)
+  }
+
+  getTeacherByName: IExpressCallback = async (req, res) => {
+    const { name } = req.params
+    const response: Teacher = await getTeacherByName(name)
+    const result: IResponseData = {
+      code: response ? eErrorCode.fail : eErrorCode.success,
+      data: response,
     }
     res.json(result)
   }

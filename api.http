@@ -4,6 +4,9 @@ GET http://localhost:5000/api
 GET http://localhost:5000/api/teacher
 
 ###
+GET http://localhost:5000/api/teacher/AA
+
+###
 
 POST http://localhost:5000/api/teacher
 Content-Type: application/json
