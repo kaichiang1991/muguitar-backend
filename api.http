@@ -1,10 +1,11 @@
 GET http://localhost:5000/api
 
+######## 教師 #######
 ###
 GET http://localhost:5000/api/teacher
 
 ###
-GET http://localhost:5000/api/teacher/Kai
+GET http://localhost:5000/api/teacher/Run
 
 ###
 
@@ -22,18 +23,20 @@ PATCH http://localhost:5000/api/teacher
 Content-Type: application/json
 
 {
-  "name": "Kai",
+  "name": "Run",
   "salary": 1200,
   "subjects": "木吉他 ｜ 電吉他"
 }
 
 ###
-DELETE http://localhost:5000/api/teacher/Run
+DELETE http://localhost:5000/api/teacher/Kai
 
 ###
 DELETE http://localhost:5000/api/teacher/
 
 
+
+######## 學生 #######
 ###
 GET http://localhost:5000/api/student
 

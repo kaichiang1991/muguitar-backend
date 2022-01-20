@@ -2,11 +2,15 @@ import express from 'express'
 import TeacherController from '../controller/TeacherController'
 
 const router = express.Router()
-router.get('/:name', TeacherController.getInstance().getTeacherByName)
-router.get('/', TeacherController.getInstance().getAllTeacher)
-router.post('/', TeacherController.getInstance().addNewTeacher)
-router.patch('/', TeacherController.getInstance().modifyTeacher)
-router.delete('/:name', TeacherController.getInstance().deleteTeacher)
-router.delete('/', TeacherController.getInstance().deleteAllTeacher)
+// get
+router.get('/:name', TeacherController.getInstance().getOne)
+router.get('/', TeacherController.getInstance().getAll)
+// post
+router.post('/', TeacherController.getInstance().addOne)
+// patch
+router.patch('/', TeacherController.getInstance().updateOne)
+// delete
+router.delete('/:name', TeacherController.getInstance().deleteOne)
+router.delete('/', TeacherController.getInstance().deleteAll)
 
 export default router

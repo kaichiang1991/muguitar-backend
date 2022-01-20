@@ -1,7 +1,8 @@
 import { DataTypes, Model, Optional } from 'sequelize'
-import sequelize from '.'
+import sequelize from '..'
+import allOp from '../operation'
 import Course from './Course'
-import Teacher, { getTeacherByName } from './Teacher'
+import Teacher from './Teacher'
 
 interface StudentAttr {
   id: number
@@ -54,7 +55,9 @@ const newStudent = async (
   teacher_name: string,
   name: string
 ): Promise<Student | string> => {
-  const teacher: Teacher = await getTeacherByName(teacher_name)
+  const teacher: Teacher = (await allOp.teacher.getByName(
+    teacher_name
+  )) as Teacher
   if (!teacher) {
     return `can't find teacher.`
   }

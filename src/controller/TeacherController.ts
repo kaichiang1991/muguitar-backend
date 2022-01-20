@@ -1,31 +1,26 @@
 import { eErrorCode, IExpressCallback, IResponseData } from '.'
-import Teacher, {
-  deleteAllTeacher,
-  deleteOneTeacher,
-  getAllTeacher,
-  getTeacherByName,
-  modifyTeacher,
-  newTeacher,
-} from '../database/Teacher'
+import BaseController from './BaseController'
+import allOp from '../database/operation/'
+import { Model } from 'sequelize'
 
-export default class TeacherController {
-  private static instance: TeacherController
+const { teacher: Op } = allOp
+export default class TeacherController extends BaseController {
+  protected static instance: TeacherController
   public static getInstance(): TeacherController {
     return this.instance || (this.instance = new TeacherController())
   }
-  private constructor() {}
 
-  getAllTeacher: IExpressCallback = async (req, res) => {
+  public getAll: IExpressCallback = async (req, res) => {
     const result: IResponseData = {
       code: eErrorCode.success,
-      data: await getAllTeacher(),
+      data: await Op.getAll(),
     }
     res.json(result)
   }
 
-  getTeacherByName: IExpressCallback = async (req, res) => {
+  public getOne: IExpressCallback = async (req, res) => {
     const { name } = req.params
-    const response: Teacher = await getTeacherByName(name)
+    const response: Model = await Op.getByName(name)
     const result: IResponseData = {
       code: response ? eErrorCode.success : eErrorCode.fail,
       data: response,
@@ -38,9 +33,9 @@ export default class TeacherController {
    * @param {body: {name: string, salary: number, subjects: string}} req
    * @param res
    */
-  addNewTeacher: IExpressCallback = async (req, res) => {
+  public addOne: IExpressCallback = async (req, res) => {
     const { name, salary, subjects } = req.body
-    const response: Teacher | string = await newTeacher(name, salary, subjects)
+    const response: Model | string = await Op.addOne(name, salary, subjects)
     const result: IResponseData = {
       code: typeof response === 'string' ? eErrorCode.fail : eErrorCode.success,
       data: response,
@@ -53,13 +48,9 @@ export default class TeacherController {
    * @param {body: {name: string, salary: number, subjects: string}} req
    * @param res
    */
-  modifyTeacher: IExpressCallback = async (req, res) => {
+  public updateOne: IExpressCallback = async (req, res) => {
     const { name, salary, subjects } = req.body
-    const response: Teacher | string = await modifyTeacher(
-      name,
-      salary,
-      subjects
-    )
+    const response: Model | string = await Op.updateOne(name, salary, subjects)
     const result: IResponseData = {
       code: typeof response === 'string' ? eErrorCode.fail : eErrorCode.success,
       data: response || 'Teacher not found',
@@ -72,9 +63,9 @@ export default class TeacherController {
    * @param {body: {name: string}} req
    * @param res
    */
-  deleteTeacher: IExpressCallback = async (req, res) => {
+  public deleteOne: IExpressCallback = async (req, res) => {
     const { name } = req.params
-    const response = await deleteOneTeacher(name)
+    const response: number = await Op.deleteOne(name)
     const result: IResponseData = {
       code: response === 0 ? eErrorCode.deleteNoOne : eErrorCode.success,
       data: response,
@@ -83,8 +74,8 @@ export default class TeacherController {
   }
 
   /** 刪除所有教師資料 */
-  deleteAllTeacher: IExpressCallback = async (req, res) => {
-    await deleteAllTeacher()
+  public deleteAll: IExpressCallback = async (req, res) => {
+    await Op.deleteAll()
 
     const result: IResponseData = {
       code: eErrorCode.success,

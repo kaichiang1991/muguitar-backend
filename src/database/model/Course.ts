@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { DataTypes, Optional, Model } from 'sequelize'
-import sequelize from '.'
+import sequelize from '..'
 
 interface CourseAttr {
   id: number

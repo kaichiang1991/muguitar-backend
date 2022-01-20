@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'
-import Course, { initCourseTable } from './Course'
-import Student, { initStudentTable } from './Student'
-import Teacher, { initTeacherTable } from './Teacher'
+import Course, { initCourseTable } from './model/Course'
+import Student, { initStudentTable } from './model/Student'
+import Teacher, { initTeacherTable } from './model/Teacher'
 
 const sequelize = new Sequelize({
   dialect: 'mariadb',

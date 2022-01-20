@@ -5,7 +5,7 @@ import Student, {
   getAllStudent,
   getStudentByName,
   newStudent,
-} from '../database/Student'
+} from '../database/model/Student'
 
 export default class StudentController {
   private static instance: StudentController
