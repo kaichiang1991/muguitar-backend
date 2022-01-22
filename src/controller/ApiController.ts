@@ -1,9 +1,12 @@
-import { IExpressCallback } from '.'
+import { eErrorCode, IExpressCallback, IResponseData } from '.'
+import Course from '../database/model/Course'
+import Student from '../database/model/Student'
+import Teacher from '../database/model/Teacher'
 import BaseController from './BaseController'
 
 export default class ApiController extends BaseController {
-  protected static instance: BaseController
-  public static getInstance(): BaseController {
+  protected static instance: ApiController
+  public static getInstance(): ApiController {
     return this.instance || (this.instance = new ApiController())
   }
 
@@ -34,8 +37,29 @@ export default class ApiController extends BaseController {
       'PATCH /api/course': '修改課程資料',
       'DELETE /api/course': '刪除全部課程',
       'DELETE /api/course/:name': '刪除單一課程',
+
+      // find
+      'GET /api/find/:teacher_id': '找出同教師的課程',
     }
 
     res.json(apiList)
+  }
+
+  public findCourseByTeacherId: IExpressCallback = async (req, res) => {
+    const { teacher_id } = req.params
+    const result: Array<Course> = await Course.findAll({
+      include: [
+        {
+          model: Student,
+          where: { teacher_id }, // 找出 Student 模型中 teacher_id 相同的 Course
+        },
+      ],
+    })
+
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+    res.json(response)
   }
 }

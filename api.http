@@ -23,7 +23,7 @@ PATCH http://localhost:5000/api/teacher
 Content-Type: application/json
 
 {
-  "name": "Run",
+  "name": "Kai",
   "salary": 1200,
   "subjects": "木吉他 ｜ 電吉他"
 }
@@ -48,8 +48,9 @@ POST http://localhost:5000/api/student/
 Content-Type: application/json
 
 {
-  "name": "studentC",
-  "teacher_name": "Kai"
+  "name": "studentD",
+  "teacher_name": "Ray",
+  "comment": "新學生2"
 }
 
 ###
@@ -81,7 +82,7 @@ Content-Type: application/json
 
 {
   "student_name": "studentA",
-  "subject": "木吉他"
+  "subject": "吉他"
 }
 
 ###
@@ -99,3 +100,6 @@ DELETE http://localhost:5000/api/course/0
 ###
 DELETE http://localhost:5000/api/course/
 
+######### 其他 ###########
+###
+GET http://localhost:5000/api/find/course/3
