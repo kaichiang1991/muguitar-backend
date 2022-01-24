@@ -5,6 +5,7 @@ interface StudentAttr {
   id: number
   name: string
   comment: string
+  teacher_id?: number
 }
 
 interface StudentCreationAttr extends Optional<StudentAttr, 'id'> {}
@@ -16,6 +17,7 @@ export default class Student
   public id!: number
   public name!: string
   public comment!: string
+  public teacher_id!: number
 
   // timestamps!
   public readonly createdAt!: Date
@@ -34,6 +36,10 @@ export async function initStudentTable() {
       comment: {
         type: new DataTypes.STRING(255),
         allowNull: true,
+      },
+      teacher_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
       },
     },
     { tableName: 'Student', sequelize }

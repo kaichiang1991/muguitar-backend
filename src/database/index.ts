@@ -38,10 +38,9 @@ const initTableAssociation = () => {
     sourceKey: 'id',
     foreignKey: 'teacher_id',
   })
-  // Student.belongsToMany(Teacher, {
-  //   foreignKey: 'teacher_id',
-  //   through: 'teachers',
-  // })
+  Student.belongsTo(Teacher, {
+    foreignKey: 'teacher_id',
+  })
 
   Student.hasOne(Course, {
     sourceKey: 'id',

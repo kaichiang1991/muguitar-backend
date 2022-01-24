@@ -43,6 +43,10 @@ export default class Teacher
   public hasStudent!: HasManyHasAssociationMixin<Student, number>
   public countStudents!: HasManyCountAssociationsMixin
   public createStudent!: HasManyCreateAssociationMixin<Student>
+
+  // public static associations: {
+  //   students: Association<Teacher, Student>
+  // }
 }
 
 export async function initTeacherTable() {

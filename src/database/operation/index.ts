@@ -23,7 +23,8 @@ interface IModelOperator<T> {
 const allOp: IAllOp = {
   teacher: {
     getAll: TeacherOp.getAll,
-    getByName: TeacherOp.getOne,
+    getByName: TeacherOp.getByName,
+    getById: TeacherOp.getById,
     addOne: TeacherOp.newOne,
     updateOne: TeacherOp.updateOne,
     deleteAll: TeacherOp.deleteAll,

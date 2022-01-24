@@ -39,14 +39,32 @@ export default class ApiController extends BaseController {
       'DELETE /api/course/:name': '刪除單一課程',
 
       // find
-      'GET /api/find/:teacher_id': '找出同教師的課程',
+      'GET /api/find/course/:param1/:type': '找出相關課程',
     }
 
     res.json(apiList)
   }
 
-  public findCourseByTeacherId: IExpressCallback = async (req, res) => {
-    const { teacher_id } = req.params
+  //#region findCourse
+  public findCourse: IExpressCallback = async (req, res) => {
+    const { param1, type } = req.params
+    switch (type) {
+      case 'subject':
+        res.json(await this.findCourseBySubject(param1))
+        break
+      case 'student_id':
+        res.json(await this.findCourseByStudentId(Number(param1)))
+        break
+      case 'teacher_id':
+      default:
+        res.json(await this.findCourseByTeacherId(Number(param1)))
+        break
+    }
+  }
+
+  public findCourseByTeacherId = async (
+    teacher_id: number
+  ): Promise<IResponseData> => {
     const result: Array<Course> = await Course.findAll({
       include: [
         {
@@ -60,6 +78,85 @@ export default class ApiController extends BaseController {
       code: eErrorCode.success,
       data: result,
     }
-    res.json(response)
+
+    return response
   }
+
+  public findCourseByStudentId = async (
+    student_id: number
+  ): Promise<IResponseData> => {
+    const result: Array<Course> = await Course.findAll({
+      where: { student_id },
+    })
+
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+
+    return response
+  }
+
+  public findCourseBySubject = async (
+    subject: string
+  ): Promise<IResponseData> => {
+    const result: Array<Course> = await Course.findAll({
+      where: { subject },
+    })
+
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+
+    return response
+  }
+
+  //#endregion findCourse
+
+  //#region  findStudent
+  public findStudent: IExpressCallback = async (req, res) => {
+    const { param1, type } = req.params
+    switch (type) {
+      default:
+      case 'teacher_id':
+        res.json(await this.findStudentByTeacherId(Number(param1)))
+        break
+      case 'teacher_name':
+        res.json(await this.findStudentByTeacherName(param1))
+        break
+    }
+  }
+
+  public findStudentByTeacherId = async (
+    teacher_id: number
+  ): Promise<IResponseData> => {
+    const result: Array<Student> = await Student.findAll({
+      where: { teacher_id },
+    })
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+    return response
+  }
+
+  public findStudentByTeacherName = async (
+    name: string
+  ): Promise<IResponseData> => {
+    const result: Array<Student> = await Student.findAll({
+      include: {
+        model: Teacher,
+        where: { name },
+      },
+    })
+
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+
+    return response
+  }
+  //#endregion findStudent
 }

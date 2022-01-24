@@ -8,8 +8,15 @@ export default class TeacherOp {
    * @param {string} name 教師名字
    * @returns {Promise<Teacher>}
    */
-  static getOne = async (name: string): Promise<Teacher> => {
+  static getByName = async (name: string): Promise<Teacher> => {
     const teacher: Teacher = await Teacher.findOne({ where: { name } }).catch(
+      err => err.name
+    )
+    return teacher
+  }
+
+  static getById = async (id: number): Promise<Teacher> => {
+    const teacher: Teacher = await Teacher.findOne({ where: { id } }).catch(
       err => err.name
     )
     return teacher
@@ -49,7 +56,7 @@ export default class TeacherOp {
     salary?: number,
     subjects?: string
   ): Promise<Teacher | string> => {
-    const teacher: Teacher = await this.getOne(name)
+    const teacher: Teacher = await this.getByName(name)
 
     // 是錯誤訊息
     if (typeof teacher === 'string') {
