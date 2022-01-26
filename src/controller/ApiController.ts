@@ -48,6 +48,7 @@ export default class ApiController extends BaseController {
   //#region findCourse
   public findCourse: IExpressCallback = async (req, res) => {
     const { param1, type } = req.params
+
     switch (type) {
       case 'subject':
         res.json(await this.findCourseBySubject(param1))
@@ -60,6 +61,25 @@ export default class ApiController extends BaseController {
         res.json(await this.findCourseByTeacherId(Number(param1)))
         break
     }
+  }
+
+  public findCourseWithTeacher: IExpressCallback = async (req, res) => {
+    const result: Array<Course> = await Course.findAll({
+      include: [
+        {
+          model: Student,
+          attributes: ['name'],
+          include: [{ model: Teacher, attributes: ['id', 'name'] }],
+        },
+      ],
+    })
+
+    const response: IResponseData = {
+      code: eErrorCode.success,
+      data: result,
+    }
+
+    res.json(response)
   }
 
   public findCourseByTeacherId = async (
@@ -132,7 +152,7 @@ export default class ApiController extends BaseController {
     teacher_id: number
   ): Promise<IResponseData> => {
     const result: Array<Student> = await Student.findAll({
-      where: { teacher_id },
+      include: [{ model: Teacher, where: { id: teacher_id } }],
     })
     const response: IResponseData = {
       code: eErrorCode.success,
