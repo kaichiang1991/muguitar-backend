@@ -2,8 +2,10 @@ import { Model } from 'sequelize'
 import CourseOp from './Course'
 import StudentOp from './Student'
 import TeacherOp from './Teacher'
+import UserOp from './User'
 
 interface IAllOp {
+  user: IModelOperator<Model>
   teacher: IModelOperator<Model>
   student: IModelOperator<Model>
   course: IModelOperator<Model>
@@ -13,6 +15,7 @@ interface IModelOperator<T> {
   getAll: { (): Promise<Array<T>> }
   getByName?: { (name: string): Promise<T> }
   getById?: { (id: number): Promise<T> }
+  getByAccount?: { (account: string): Promise<T> }
   addOne: { (...ctx: Array<any>): Promise<T | string> }
   updateOne: { (...ctx: Array<any>): Promise<T | string> }
   deleteAll: { (): void }
@@ -21,6 +24,14 @@ interface IModelOperator<T> {
 }
 
 const allOp: IAllOp = {
+  user: {
+    getAll: UserOp.getAll,
+    getByAccount: UserOp.getByAccount,
+    addOne: UserOp.newOne,
+    updateOne: UserOp.updateOne,
+    deleteAll: UserOp.deleteAll,
+    deleteOne: UserOp.deleteOne,
+  },
   teacher: {
     getAll: TeacherOp.getAll,
     getByName: TeacherOp.getByName,

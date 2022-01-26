@@ -14,6 +14,15 @@ export default class ApiController extends BaseController {
   public getAll: IExpressCallback = (req, res) => {
     const apiList: { [key: string]: string } = {
       'GET /api': '取得所有 api 列表',
+      // user
+      'GET /api/user': '取得所有user列表',
+      'GET /api/user/:account': '取得user資料',
+      'GET /api/user/identify/:account/:password': '驗證帳密正確',
+      'POST /api/user': '新增user',
+      'PATCH /api/user': '修改user',
+      'DELETE /api/user/:account': '刪除指定user',
+      'DELETE /api/user': '刪除所有user',
+
       // teacher
       'GET /api/teacher': '取得所有教師列表',
       'GET /api/teacher/:name': '取得教師資料',
@@ -40,6 +49,7 @@ export default class ApiController extends BaseController {
 
       // find
       'GET /api/find/course/:param1/:type': '找出相關課程',
+      'GET /api/find/student/:param1/:type': '找出相關學生',
     }
 
     res.json(apiList)

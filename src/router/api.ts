@@ -4,9 +4,11 @@ import teacherRouter from './teacher'
 import studentRouter from './student'
 import courseRouter from './course'
 import findRouter from './find'
+import userRouter from './user'
 
 const router: Router = express.Router()
 
+router.use('/user', userRouter)
 router.use('/teacher', teacherRouter)
 router.use('/student', studentRouter)
 router.use('/course', courseRouter)

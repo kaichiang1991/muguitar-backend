@@ -1,4 +1,41 @@
 GET http://localhost:5000/api
+######## User ######
+###
+GET http://localhost:5000/api/user
+
+###
+GET http://localhost:5000/api/user/kai
+
+
+###
+GET http://localhost:5000/api/user/identify/kai/0011
+
+###
+POST http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+  "teacher_id": 8,
+  "account": "rin",
+  "password": "0011",
+  "username": "aaa"
+}
+
+###
+PATCH http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+  "account": "run",
+  "password": "bbb",
+  "username": "家安"
+}
+
+###
+DELETE  http://localhost:5000/api/user/kai
+
+###
+DELETE  http://localhost:5000/api/user
 
 ######## 教師 #######
 ###
@@ -13,7 +50,7 @@ POST http://localhost:5000/api/teacher
 Content-Type: application/json
 
 {
-  "name": "Ray",
+  "name": "Kai",
   "salary": 1200,
   "subjects": "木吉他 | mixing"
 }
@@ -102,7 +139,10 @@ DELETE http://localhost:5000/api/course/
 
 ######### 其他 ###########
 ###
-GET http://localhost:5000/api/find/course/1/student_id
+GET http://localhost:5000/api/find/course/1/teacher_id
 
 ###
-GET http://localhost:5000/api/find/student/Run/teacher_name
+GET http://localhost:5000/api/find/course/withTeacher
+
+###
+GET http://localhost:5000/api/find/student/5/teacher_id
